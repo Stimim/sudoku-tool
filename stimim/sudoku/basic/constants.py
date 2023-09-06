@@ -1,0 +1,2 @@
+BOX_SIZE = 3
+BOARD_SIZE = 9
