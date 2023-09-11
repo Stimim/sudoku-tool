@@ -1,2 +1,3 @@
 BOX_SIZE = 3
 BOARD_SIZE = 9
+ALL_DIGITS = set(range(1, BOARD_SIZE + 1))

@@ -6,7 +6,6 @@ from stimim.sudoku.basic import position
 
 BOX_SIZE = constants.BOX_SIZE
 BOARD_SIZE = constants.BOARD_SIZE
-ALL_DIGITS = set()
 
 Index = position.Index
 Coord = position.Coord
@@ -25,6 +24,9 @@ class DigitAlreadySet(Exception):
 
 
 class _SudokuCell:
+  __slots__ = [
+    'candidates', 'digit'
+  ]
   def __init__(self, cs: set[int] | None = None, digit: int | None = None):
     if cs is not None:
       self.candidates = cs
@@ -50,6 +52,10 @@ class _SudokuCell:
 
 
 class SudokuBoard:
+  __slots__ = [
+    'cells'
+  ]
+
   def __init__(self, cells: list[_SudokuCell] | None = None):
     if cells is not None:
       self.cells = cells
@@ -94,7 +100,7 @@ class SudokuBoard:
           result[index] = result[index].remove_candidate(digit)
     return self.__class__(result)
 
-  def show(self):
+  def __str__(self):
     output = ''
     for row in range(constants.BOARD_SIZE):
       for col in range(constants.BOARD_SIZE):
@@ -104,4 +110,7 @@ class SudokuBoard:
         else:
           output += ' ? '
       output += '\n'
-    logging.info(output)
+    return output
+
+  def show(self):
+    logging.info(str(self))
